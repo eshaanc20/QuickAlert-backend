@@ -18,7 +18,7 @@ router.post('/', (req, res, next) => {
     }
     else if (req.body.type == 'user') {
         User.find({ email: req.body.email }).then(info => {
-            res.send(req.body.password)
+            res.send(info.password)
             // if (info.password == req.body.password) {
             //     res.send(true);
             // } else {
