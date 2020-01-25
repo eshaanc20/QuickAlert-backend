@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://new-user:gN5HQ3tA1sqBCFRE@cluster0-y8hdl.mongodb.net/quick-alert?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://new-user:gN5HQ3tA1sqBCFRE@cluster0-y8hdl.mongodb.net/quick-alert", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
 })
 
 const newAlert = (name, user, time, address) => {
