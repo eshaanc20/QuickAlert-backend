@@ -8,6 +8,7 @@ const http = require('http');
 var indexRouter = require('./routes/index');
 var smsRouter = require('./routes/sms');
 var authenticationRouter = require('./routes/authentication');
+var newUserRouter = require('./routes/newUser');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/sms', smsRouter);
 app.use('/authentication', authenticationRouter);
+app.use('/newUser', newUserRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
