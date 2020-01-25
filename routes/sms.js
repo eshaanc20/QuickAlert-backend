@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 var router = express.Router();
 var {NewAlert} = require('../db/mongoose');
 var {User} = require('../db/mongoose');
-var {Hospital} = require('../db/mongoose');
+var {Service} = require('../db/mongoose');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 router.post('/', function(req, res, next) {

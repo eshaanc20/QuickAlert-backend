@@ -32,10 +32,11 @@ const user = mongoose.model('users', {
     otherDetails: { type: String }
 })
 
-const hospital = mongoose.model('hospitals', {
+const service = mongoose.model('services', {
     name: { type: String },
     email: { type: String },
     password: { type: String },
+    type: { type: String},
     address: { type: String },
     latitude: { type: Number },
     longitude: { type: Number }
@@ -43,6 +44,6 @@ const hospital = mongoose.model('hospitals', {
 
 module.exports = {
     User: user,
-    Hospital: hospital,
+    Service: service,
     NewAlert: newAlert,
 }
