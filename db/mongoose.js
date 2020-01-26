@@ -4,21 +4,20 @@ mongoose.connect("mongodb+srv://new-user:gN5HQ3tA1sqBCFRE@cluster0-y8hdl.mongodb
     useNewUrlParser: true,
 })
 
-const newAlert = (name, user, time, address) => {
+const newAlert = (name, user) => {
     const alertInfo = {
         firstName: { type: String },
         lastName: { type: String },
-        date: { type: String },
-        currentLocation: { type: String },
-        phoneNumber: { type: Number },
+        // date: { type: String },
+        // currentLocation: { type: String },
+        phoneNumber: { type: String },
         age: { type: Number },
         conditions: { type: String },
         otherDetails: { type: String },
     }
 
     const alert = mongoose.model(name, alertInfo);
-    const newAlert = new alert({...user, date: time, currentLocation: address});
-    return newAlert;
+    return alert;
 }
 
 const user = mongoose.model('users', {
