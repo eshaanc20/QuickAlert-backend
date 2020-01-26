@@ -31,13 +31,10 @@ router.post('/', function(req, res, next) {
                 [long, lat] = response.data.features[0].center
                 Service.find({}).then(services => {
                     var distances = []
-                    for (let i = 0; i<2; i++){
-                        distances.push(1);
+                    for (let i = 0; i<services.length; i++){
+                        var distance = distanceBetween([services[0].latitude, services[1].longitude], [lat, long]);
+                        distances.push(distance);
                     }
-                    // services.forEach(service => {
-                    //     var distance = distanceBetween([service.latitude, service.longitude], [lat, long]);
-                    //     distances.push(distance);
-                    // })
                     // const index = distances.indexOf(Math.min(distances));
                     // const serviceSelected = services[0]
                     const userInformation = {
