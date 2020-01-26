@@ -17,7 +17,7 @@ router.post('/', function(req, res, next) {
         var lat2 = lat2.toRadians();
         var differenceLat = (lat2-lat1).toRadians();
         var differenceLong = (long2-long1).toRadians();
-        var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) *Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        var a = Math.sin(differenceLat/2) * Math.sin(differenceLat/2) + Math.cos(lat1) * Math.cos(lat2) *Math.sin(differenceLong/2) * Math.sin(differenceLong/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
         return 6371 * c;
     }    
