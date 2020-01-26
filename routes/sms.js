@@ -18,6 +18,7 @@ router.post('/', function(req, res, next) {
             medicalConditions: userInfo.medicalConditions,
             otherDetails: userInfo.otherDetails,
         }
+        const alert = NewAlert("goodwill")
         const newAlert = new alert(userInformation);
         newAlert.save().then(() => {
             // twiml.message('Your information has been sent to ' + 'Goodwill University')
