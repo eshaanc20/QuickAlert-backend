@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
                         distances.push(distance);
                     })
                     const index = distances.indexOf(Math.min(distances));
-                    const serviceSelected = services[index]
+                    const serviceSelected = services[0]
                     const userInformation = {
                         name: userInfo[0].name,
                         time: currentTime,
