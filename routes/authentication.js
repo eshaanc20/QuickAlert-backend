@@ -7,9 +7,9 @@ router.post('/', (req, res, next) => {
     if (req.body.type == 'service') {
         Service.find({ email: req.body.email }).then(info => {
             if (info[0].password == req.body.password) {
-                res.send(JSON.stringify([true, info[0].type]));
+                res.send(true);
             } else {
-                res.send(JSON.stringify([false, info[0].type]));
+                res.send(false);
             }
         }).catch(err => {
             res.send("Service is not in database")
@@ -18,9 +18,9 @@ router.post('/', (req, res, next) => {
     else if (req.body.type == 'user') {
         User.find({ email: req.body.email }).then(info => {
             if (info[0].password == req.body.password) {
-                res.send(JSON.stringify([true, 'user']));
+                res.send(true);
             } else {
-                res.send(JSON.stringify([true, 'user']));
+                res.send(false);
             }
         }).catch(err => {
             res.send("User is not in database")
