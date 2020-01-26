@@ -19,12 +19,24 @@ router.post('/', function(req, res, next) {
             medicalConditions: userInfo.medicalConditions,
             otherDetails: userInfo.otherDetails,
         }
-        const Alert = NewAlert("goodwilluniversity");
-        const newAlert = new Alert(userInformation);
-        Alert.save();
-        // twiml.message('Your information has been sent to ' + 'Goodwill University')
-        // res.writeHead(200, {'Content-Type': 'text/xml'});
-        // res.end(twiml.toString());
+        const alertInfo = {
+            firstName: { type: String },
+            lastName: { type: String },
+            // date: { type: String },
+            // currentLocation: { type: String },
+            phoneNumber: { type: String },
+            age: { type: Number },
+            medicalConditions: { type: String },
+            otherDetails: { type: String },
+        }
+    
+        const alert = mongoose.model('Testing', alertInfo);
+        const newAlert = new alert(userInformation);
+        Alert.save().then(() => {
+            twiml.message('Your information has been sent to ' + 'Goodwill University')
+            res.writeHead(200, {'Content-Type': 'text/xml'});
+            res.end(twiml.toString());
+        })
     })
 })
 
