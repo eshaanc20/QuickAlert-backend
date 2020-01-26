@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const {NewAlert} = require('../db/mongoose.js');
+const {User} = require('../db/mongoose.js');
 
 router.post('/', function(req, res, next) {
-    let alert = NewAlert("goodwill");
-    alert.find({}).then(alerts => {
+    User.find({}).then(alerts => {
         var JSONdata = JSON.stringify(alerts);
         res.send(JSONdata);
     }).catch(err => {
