@@ -33,6 +33,7 @@ const alert = mongoose.model('alerts', {
     age: { type: Number },
     medicalConditions: { type: String },
     otherDetails: { type: String },
+    responded: false
 })
 
 module.exports = {

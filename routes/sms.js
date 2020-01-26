@@ -46,6 +46,7 @@ router.post('/', function(req, res, next) {
                         age: userInfo[0].age,
                         medicalConditions: userInfo[0].medicalConditions,
                         otherDetails: userInfo[0].otherDetails,
+                        responded: false,
                     }
                     let newAlert = new Alert(userInformation)
                     newAlert.save().then(() => {
