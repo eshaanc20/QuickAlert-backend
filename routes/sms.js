@@ -31,10 +31,13 @@ router.post('/', function(req, res, next) {
                 [long, lat] = response.data.features[0].center
                 Service.find({}).then(services => {
                     var distances = []
-                    services.forEach(service => {
-                        var distance = distanceBetween([service.latitude, service.longitude], [lat, long]);
-                        distances.push(distance);
-                    })
+                    for (let i = 0; i<2; i++){
+                        distances.push(1);
+                    }
+                    // services.forEach(service => {
+                    //     var distance = distanceBetween([service.latitude, service.longitude], [lat, long]);
+                    //     distances.push(distance);
+                    // })
                     // const index = distances.indexOf(Math.min(distances));
                     // const serviceSelected = services[0]
                     const userInformation = {
@@ -49,7 +52,7 @@ router.post('/', function(req, res, next) {
                     }
                     let newAlert = new Alert(userInformation)
                     newAlert.save().then(() => {
-                        twiml.message('Your information has been sent to ' + distance)
+                        twiml.message('Your information has been sent to ' + distances[0])
                         res.writeHead(200, {'Content-Type': 'text/xml'});
                         res.end(twiml.toString());
                     })
