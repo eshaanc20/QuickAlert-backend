@@ -18,9 +18,9 @@ router.post('/', (req, res, next) => {
     else if (req.body.type == 'user') {
         User.find({ email: req.body.email }).then(info => {
             if (info[0].password == req.body.password) {
-                res.send(JSON.stringify([true, 'user']));
+                res.send(true);
             } else {
-                res.send(JSON.stringify([false, 'user']));
+                res.send(false);
             }
         }).catch(err => {
             res.send("User is not in database")
