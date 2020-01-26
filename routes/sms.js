@@ -1,6 +1,7 @@
 var express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
+const axios = require('axios');
 var router = express.Router();
 var {Alert} = require('../db/mongoose');
 var {User} = require('../db/mongoose');
@@ -41,7 +42,7 @@ router.post('/', function(req, res, next) {
                         name: userInfo[0].name,
                         time: currentTime,
                         currentLocation: req.body.Body,
-                        serviceName: "goodwill",
+                        serviceName: serviceSelected.name,
                         phoneNumber: userInfo[0].phoneNumber,
                         age: userInfo[0].age,
                         medicalConditions: userInfo[0].medicalConditions,
