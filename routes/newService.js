@@ -6,11 +6,11 @@ router.post('/', (req, res, next) => {
     const serviceInfo = {
         ...req.body
     };
-    const newService = new Hospital(serviceInfo);
+    const newService = new Service(serviceInfo);
     newService.save().then(() => {
-        res.send("New hospital registered");
+        res.send("New service registered");
     }).catch(err => {
-        res.send("New hospital was not registered");
+        res.send("New service was not registered");
     })
 })
 
