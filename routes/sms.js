@@ -30,9 +30,6 @@ router.post('/', function(req, res, next) {
             .then(response => {
                 [long, lat] = response.data.features[0].center
                 Service.find({}).then(services => {
-                    twiml.message('Your information has been sent to ')
-                        res.writeHead(200, {'Content-Type': 'text/xml'});
-                        res.end(twiml.toString());
                     // const distances = []
                     // services.forEach(service => {
                     //     const distance = distanceBetween([service.latitude, service.longitude], [lat, long]);
@@ -44,7 +41,7 @@ router.post('/', function(req, res, next) {
                         name: userInfo[0].name,
                         time: currentTime,
                         currentLocation: req.body.Body,
-                        serviceName: serviceSelected.name,
+                        serviceName: "testing",
                         phoneNumber: userInfo[0].phoneNumber,
                         age: userInfo[0].age,
                         medicalConditions: userInfo[0].medicalConditions,
@@ -52,6 +49,9 @@ router.post('/', function(req, res, next) {
                     }
                     let newAlert = new Alert(userInformation)
                     newAlert.save().then(() => {
+                        twiml.message('Your information has been sent to ')
+                        res.writeHead(200, {'Content-Type': 'text/xml'});
+                        res.end(twiml.toString());
                     })
                 })
             })
