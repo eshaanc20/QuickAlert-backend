@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
     
         const alert = mongoose.model('Testing', alertInfo);
         const newAlert = new alert(userInformation);
-        Alert.save().then(() => {
+        newAlert.save().then(() => {
             twiml.message('Your information has been sent to ' + 'Goodwill University')
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());
