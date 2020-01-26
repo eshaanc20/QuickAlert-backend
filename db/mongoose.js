@@ -37,8 +37,8 @@ const service = mongoose.model('services', {
     password: { type: String },
     type: { type: String},
     address: { type: String },
-    // latitude: { type: Number },
-    // longitude: { type: Number }
+    latitude: { type: Number },
+    longitude: { type: Number }
 })
 
 module.exports = {
