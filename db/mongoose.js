@@ -4,7 +4,7 @@ mongoose.connect("mongodb+srv://new-user:gN5HQ3tA1sqBCFRE@cluster0-y8hdl.mongodb
     useNewUrlParser: true,
 })
 
-const newAlert = (name, user) => {
+const newAlert = (name) => {
     const alertInfo = {
         firstName: { type: String },
         lastName: { type: String },
@@ -12,7 +12,7 @@ const newAlert = (name, user) => {
         // currentLocation: { type: String },
         phoneNumber: { type: String },
         age: { type: Number },
-        conditions: { type: String },
+        medicalConditions: { type: String },
         otherDetails: { type: String },
     }
 
@@ -26,7 +26,7 @@ const user = mongoose.model('users', {
     password: { type: String },
     phoneNumber: { type: String },
     age: { type: Number },
-    conditions: { type: String },
+    medicalConditions: { type: String },
     otherDetails: { type: String }
 })
 
