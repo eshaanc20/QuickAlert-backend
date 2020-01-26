@@ -11,6 +11,7 @@ var smsRouter = require('./routes/sms');
 var authenticationRouter = require('./routes/authentication');
 var newUserRouter = require('./routes/newUser');
 var newServiceRouter = require('./routes/newService');
+require('./db/mongoose.js');
 
 var app = express();
 
