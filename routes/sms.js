@@ -11,8 +11,11 @@ router.post('/', function(req, res, next) {
     const twiml = new MessagingResponse();
     
     User.find({phoneNumber: req.body.From}).then(userInfo => {
+        const currentTime = new Date();
         const userInformation = {
             name: userInfo[0].name,
+            time: currentTime,
+            currentLocation: req.body.Body,
             serviceName: 'goodwills',
             phoneNumber: userInfo[0].phoneNumber,
             age: userInfo[0].age,

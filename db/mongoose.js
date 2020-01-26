@@ -26,8 +26,8 @@ const service = mongoose.model('services', {
 
 const alert = mongoose.model('alerts', {
     name: { type: String },
-    // date: { type: String },
-    // currentLocation: { type: String },
+    time: { type: String },
+    currentLocation: { type: String },
     serviceName: { type: String },
     phoneNumber: { type: String },
     age: { type: Number },
