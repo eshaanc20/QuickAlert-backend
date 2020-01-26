@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
                 Service.find({}).then(services => {
                     const distances = []
                     services.forEach(service => {
-                        const distance = distanceBetween([service.latitude, service.longitude], [lat, long]);
+                        const distance = distanceBetween([service[0].latitude, service[0].longitude], [lat, long]);
                         distances.push(distance);
                     })
                     const index = distances.indexOf(Math.min(distances));
