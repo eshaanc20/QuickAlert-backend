@@ -12,30 +12,17 @@ router.post('/', function(req, res, next) {
     
     User.find({phoneNumber: req.body.From}).then(userInfo => {
         const userInformation = {
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName,
+            name: userInfo.name,
             phoneNumber: userInfo.phoneNumber,
             age: userInfo.age,
             medicalConditions: userInfo.medicalConditions,
             otherDetails: userInfo.otherDetails,
         }
-        const alertInfo = {
-            firstName: { type: String },
-            lastName: { type: String },
-            // date: { type: String },
-            // currentLocation: { type: String },
-            phoneNumber: { type: String },
-            age: { type: Number },
-            medicalConditions: { type: String },
-            otherDetails: { type: String },
-        }
-    
-        const alert = mongoose.model('Testing', alertInfo);
         const newAlert = new alert(userInformation);
         newAlert.save().then(() => {
-            twiml.message('Your information has been sent to ' + 'Goodwill University')
-            res.writeHead(200, {'Content-Type': 'text/xml'});
-            res.end(twiml.toString());
+            // twiml.message('Your information has been sent to ' + 'Goodwill University')
+            // res.writeHead(200, {'Content-Type': 'text/xml'});
+            // res.end(twiml.toString());
         })
     })
 })
