@@ -41,7 +41,7 @@ router.post('/', function(req, res, next) {
                         name: userInfo[0].name,
                         time: currentTime,
                         currentLocation: req.body.Body,
-                        serviceName: serviceSelected.name,
+                        serviceName: "goodwill",
                         phoneNumber: userInfo[0].phoneNumber,
                         age: userInfo[0].age,
                         medicalConditions: userInfo[0].medicalConditions,
