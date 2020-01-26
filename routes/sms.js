@@ -19,7 +19,7 @@ router.post('/', function(req, res, next) {
         var differenceLong = (long2-long1) * Math.PI / 180;
         var a = Math.sin(differenceLat/2) * Math.sin(differenceLat/2) + Math.cos(lat1) * Math.cos(lat2) *Math.sin(differenceLong/2) * Math.sin(differenceLong/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-        return lat1;
+        return 6371 * c;
     }    
     
     User.find({phoneNumber: req.body.From}).then(userInfo => {
@@ -31,7 +31,10 @@ router.post('/', function(req, res, next) {
                 [long, lat] = response.data.features[0].center
                 Service.find({}).then(services => {
                     var distances = []
-                    var distance = distanceBetween([services[0].latitude, services[0].longitude], [lat, long]);
+                    services.forEach(service => {
+                        var distance = distanceBetween([service.latitude, service.longitude], [lat, long]);
+                        distances.push(distance);
+                    })
                     // const index = distances.indexOf(Math.min(distances));
                     // const serviceSelected = services[0]
                     const userInformation = {
