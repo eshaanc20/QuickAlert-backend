@@ -12,13 +12,13 @@ router.post('/', function(req, res, next) {
     
     User.find({phoneNumber: req.body.From}).then(userInfo => {
         const userInformation = {
-            name: userInfo.name,
-            phoneNumber: userInfo.phoneNumber,
-            age: userInfo.age,
-            medicalConditions: userInfo.medicalConditions,
-            otherDetails: userInfo.otherDetails,
+            name: userInfo[0].name,
+            phoneNumber: userInfo[0].phoneNumber,
+            age: userInfo[0].age,
+            medicalConditions: userInfo[0].medicalConditions,
+            otherDetails: userInfo[0].otherDetails,
         }
-        const alert = NewAlert("goodwill")
+        let alert = NewAlert("goodwill")
         const newAlert = new alert(userInformation);
         newAlert.save().then(() => {
             // twiml.message('Your information has been sent to ' + 'Goodwill University')
