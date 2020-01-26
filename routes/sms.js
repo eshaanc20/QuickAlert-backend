@@ -41,7 +41,7 @@ router.post('/', function(req, res, next) {
                         name: userInfo[0].name,
                         time: currentTime,
                         currentLocation: req.body.Body,
-                        serviceName: services[1].name,
+                        serviceName: serviceSelected.name,
                         phoneNumber: userInfo[0].phoneNumber,
                         age: userInfo[0].age,
                         medicalConditions: userInfo[0].medicalConditions,
@@ -49,7 +49,7 @@ router.post('/', function(req, res, next) {
                     }
                     let newAlert = new Alert(userInformation)
                     newAlert.save().then(() => {
-                        twiml.message('Your information has been sent to ')
+                        twiml.message('Your information has been sent to ' + serviceSelected.name)
                         res.writeHead(200, {'Content-Type': 'text/xml'});
                         res.end(twiml.toString());
                     })
