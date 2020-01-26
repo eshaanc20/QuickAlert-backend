@@ -11,6 +11,7 @@ var smsRouter = require('./routes/sms');
 var authenticationRouter = require('./routes/authentication');
 var newUserRouter = require('./routes/newUser');
 var newServiceRouter = require('./routes/newService');
+var respondRouter = require('./routes/respond');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/sms', smsRouter);
 app.use('/authentication', authenticationRouter);
 app.use('/newUser', newUserRouter);
 app.use('/newService', newServiceRouter);
+app.use('/respond', respondRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
