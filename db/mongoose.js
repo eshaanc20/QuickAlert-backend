@@ -25,7 +25,7 @@ const user = mongoose.model('users', {
     name: { type: String },
     email: { type: String },
     password: { type: String },
-    phoneNumber: { type: Number },
+    phoneNumber: { type: String },
     age: { type: Number },
     conditions: { type: String },
     otherDetails: { type: String }
