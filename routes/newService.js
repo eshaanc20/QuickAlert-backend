@@ -7,7 +7,7 @@ router.post('/', (req, res, next) => {
     const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + req.body.address + ".json?access_token=pk.eyJ1IjoiZXNoYWFuYyIsImEiOiJjazV1Z2RieDYxOWo1M21tanVpdmlxbG54In0.0WdUZzxQ-wDgly1Q44y4lA"
     axios.get(url)
         .then(response => {
-            [lat, long] = response.data.features[0].center
+            [long, lat] = response.data.features[0].center
             const serviceInfo = {
                 ...req.body,
                 latitude: lat,
