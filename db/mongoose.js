@@ -28,6 +28,7 @@ const alert = mongoose.model('alerts', {
     name: { type: String },
     // date: { type: String },
     // currentLocation: { type: String },
+    serviceName: { type: String },
     phoneNumber: { type: String },
     age: { type: Number },
     medicalConditions: { type: String },

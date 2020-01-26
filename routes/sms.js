@@ -13,6 +13,7 @@ router.post('/', function(req, res, next) {
     User.find({phoneNumber: req.body.From}).then(userInfo => {
         const userInformation = {
             name: userInfo[0].name,
+            serviceName: 'goodwills',
             phoneNumber: userInfo[0].phoneNumber,
             age: userInfo[0].age,
             medicalConditions: userInfo[0].medicalConditions,
@@ -20,9 +21,9 @@ router.post('/', function(req, res, next) {
         }
         let newAlert = new Alert(userInformation)
         newAlert.save().then(() => {
-            twiml.message('Your information has been sent to ' + 'Goodwill University')
-            res.writeHead(200, {'Content-Type': 'text/xml'});
-            res.end(twiml.toString());
+            // twiml.message('Your information has been sent to ' + 'Goodwill University')
+            // res.writeHead(200, {'Content-Type': 'text/xml'});
+            // res.end(twiml.toString());
         })
     })
 })
