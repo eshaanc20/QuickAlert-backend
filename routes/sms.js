@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
                 [long, lat] = response.data.features[0].center
                 Service.find({}).then(services => {
                     var distances = []
-                    var distance = distanceBetween([service[0].latitude, service[0].longitude], [lat, long]);
+                    var distance = distanceBetween([services[0].latitude, services[0].longitude], [lat, long]);
                     // const index = distances.indexOf(Math.min(distances));
                     // const serviceSelected = services[0]
                     const userInformation = {
