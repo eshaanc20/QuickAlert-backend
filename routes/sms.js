@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
                         distances.push(distance);
                     }
                     const index = distances.indexOf(Math.min(...distances));
-                    const serviceSelected = services[0]
+                    const serviceSelected = services[index]
                     const userInformation = {
                         name: userInfo[0].name,
                         time: currentTime,
@@ -50,7 +50,7 @@ router.post('/', function(req, res, next) {
                     }
                     let newAlert = new Alert(userInformation)
                     newAlert.save().then(() => {
-                        twiml.message('Your information has been sent to ' + distances[0] + ' ' + distances[1])
+                        twiml.message('Your information has been sent to ' + serviceSelected.name)
                         res.writeHead(200, {'Content-Type': 'text/xml'});
                         res.end(twiml.toString());
                     })
