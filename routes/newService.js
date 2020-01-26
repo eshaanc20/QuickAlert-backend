@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var {Service} = require('../db/mongoose');
-var {NewAlert} = require('../db/mongoose');
 var axios = require('axios');
 
 router.post('/', (req, res, next) => {

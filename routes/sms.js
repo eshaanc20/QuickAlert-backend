@@ -2,7 +2,7 @@ var express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
 var router = express.Router();
-var {NewAlert} = require('../db/mongoose');
+var {Alert} = require('../db/mongoose');
 var {User} = require('../db/mongoose');
 var {Service} = require('../db/mongoose');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
@@ -18,8 +18,7 @@ router.post('/', function(req, res, next) {
             medicalConditions: userInfo[0].medicalConditions,
             otherDetails: userInfo[0].otherDetails,
         }
-        let alert = NewAlert("goodwill")
-        const newAlert = new alert(userInformation);
+        let newAlert = new Alert(userInformation)
         newAlert.save().then(() => {
             twiml.message('Your information has been sent to ' + 'Goodwill University')
             res.writeHead(200, {'Content-Type': 'text/xml'});
