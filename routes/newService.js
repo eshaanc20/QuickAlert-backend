@@ -4,10 +4,10 @@ var {Service} = require('../db/mongoose');
 var axios = require('axios');
 
 router.post('/', (req, res, next) => {
-    const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + req.body.address + ".json?access_token=pk.eyJ1IjoiZXNoYWFuYyIsImEiOiJjanhoM2Vqa2swYTVhM3NtdnNmZWhoNGY3In0.K7eRFoNOsMMBo88EmoRspA"
+    const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + req.body.address + ".json?access_token=pk.eyJ1IjoiZXNoYWFuYyIsImEiOiJjazV1Z2RieDYxOWo1M21tanVpdmlxbG54In0.0WdUZzxQ-wDgly1Q44y4lA"
     axios.get(url)
         .then(response => {
-            res.send(response)
+            res.send(response.data.features[0].center)
         })
     // const serviceInfo = {
     //     ...req.body
