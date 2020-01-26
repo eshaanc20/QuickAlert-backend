@@ -11,7 +11,8 @@ router.post('/', function(req, res, next) {
     const twiml = new MessagingResponse();
     
     User.find({phoneNumber: req.body.From}).then(userInfo => {
-        const currentTime = new Date().toLocaleDateString('en-US', {timeZone: 'America/New_York'})
+        var currentTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+        currentTime = new Date(currentTime);
         const userInformation = {
             name: userInfo[0].name,
             time: currentTime,
