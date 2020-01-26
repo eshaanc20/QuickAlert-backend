@@ -49,7 +49,7 @@ router.post('/', function(req, res, next) {
                     }
                     let newAlert = new Alert(userInformation)
                     newAlert.save().then(() => {
-                        twiml.message('Your information has been sent to ' + services.length
+                        twiml.message('Your information has been sent to ' + services.length)
                         res.writeHead(200, {'Content-Type': 'text/xml'});
                         res.end(twiml.toString());
                     })
