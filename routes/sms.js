@@ -21,9 +21,9 @@ router.post('/', function(req, res, next) {
         }
         const Alert = NewAlert("goodwilluniversity");
         const newAlert = new Alert(userInformation);
-        twiml.message('Your information has been sent to ' + 'Goodwill University')
-        res.writeHead(200, {'Content-Type': 'text/xml'});
-        res.end(twiml.toString());
+        // twiml.message('Your information has been sent to ' + 'Goodwill University')
+        // res.writeHead(200, {'Content-Type': 'text/xml'});
+        // res.end(twiml.toString());
         Alert.save();
     })
 })
