@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var smsRouter = require('./routes/sms');
 var authenticationRouter = require('./routes/authentication');
 var newUserRouter = require('./routes/newUser');
-var newHospitalRouter = require('./routes/newHospital');
+var newServiceRouter = require('./routes/newService');
 
 var app = express();
 
@@ -29,7 +29,7 @@ app.use('/', indexRouter);
 app.use('/sms', smsRouter);
 app.use('/authentication', authenticationRouter);
 app.use('/newUser', newUserRouter);
-app.use('/newHospital', newHospitalRouter);
+app.use('/newService', newServiceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

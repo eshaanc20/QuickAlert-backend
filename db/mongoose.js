@@ -22,8 +22,7 @@ const newAlert = (name, user, time, address) => {
 }
 
 const user = mongoose.model('users', {
-    firstName: { type: String },
-    lastName: { type: String },
+    name: { type: String },
     email: { type: String },
     password: { type: String },
     phoneNumber: { type: Number },
