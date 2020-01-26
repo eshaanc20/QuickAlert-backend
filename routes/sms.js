@@ -13,12 +13,12 @@ router.post('/', function(req, res, next) {
     const distanceBetween = (coordinates1, coordinates2) => {
         [lat1, long1] = coordinates1;
         [lat2, long2] = coordinates2;
-        var lat1 = lat1.toRadians();
-        var lat2 = lat2.toRadians();
-        var differenceLat = (lat2-lat1).toRadians();
-        var differenceLong = (long2-long1).toRadians;
-        var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) *Math.sin(Δλ/2) * Math.sin(Δλ/2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+        // var lat1 = lat1.toRadians();
+        // var lat2 = lat2.toRadians();
+        // var differenceLat = (lat2-lat1).toRadians();
+        // var differenceLong = (long2-long1).toRadians;
+        // var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) *Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        // var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
         return 6371 * lat1;
     }    
     
