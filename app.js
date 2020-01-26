@@ -32,7 +32,6 @@ app.use('/sms', smsRouter);
 app.use('/authentication', authenticationRouter);
 app.use('/newUser', newUserRouter);
 app.use('/newService', newServiceRouter);
-app.use('/hello', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
