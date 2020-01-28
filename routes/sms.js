@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
         return 6371 * c;
     }    
     User.find({phoneNumber: req.body.From}).then(userInfo => {
-        if (userInfo == null) {
+        if (userInfo.length == 0) {
             twiml.message('Please sign up as user on Quick Alert')
             res.writeHead(200, {'Content-Type': 'text/xml'});
             res.end(twiml.toString());
