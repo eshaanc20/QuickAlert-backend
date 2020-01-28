@@ -21,45 +21,46 @@ router.post('/', function(req, res, next) {
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
         return 6371 * c;
     }    
-    
     User.find({phoneNumber: req.body.From}).then(userInfo => {
-        var currentTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
-        const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + req.body.Body + ".json?access_token=pk.eyJ1IjoiZXNoYWFuYyIsImEiOiJjazV1Z2RieDYxOWo1M21tanVpdmlxbG54In0.0WdUZzxQ-wDgly1Q44y4lA"
-        currentTime = new Date(currentTime);
-        axios.get(url)
-            .then(response => {
-                [long, lat] = response.data.features[0].center
-                Service.find({}).then(services => {
-                    var distances = []
-                    for (let i = 0; i<services.length; i++){
-                        var distance = distanceBetween([services[i].latitude, services[i].longitude], [lat, long]);
-                        distances.push(distance);
-                    }
-                    const index = distances.indexOf(Math.min(...distances));
-                    const serviceSelected = services[index]
-                    const userInformation = {
-                        name: userInfo[0].name,
-                        time: currentTime,
-                        currentLocation: req.body.Body,
-                        serviceName: serviceSelected.name,
-                        phoneNumber: userInfo[0].phoneNumber,
-                        age: userInfo[0].age,
-                        medicalConditions: userInfo[0].medicalConditions,
-                        otherDetails: userInfo[0].otherDetails,
-                        responded: false,
-                    }
-                    let newAlert = new Alert(userInformation)
-                    newAlert.save().then(() => {
-                        twiml.message('Your information has been sent to ' + serviceSelected.name)
-                        res.writeHead(200, {'Content-Type': 'text/xml'});
-                        res.end(twiml.toString());
+        if (userInfo == null) {
+            twiml.message('Please sign up as user on Quick Alert')
+            res.writeHead(200, {'Content-Type': 'text/xml'});
+            res.end(twiml.toString());
+        } else {
+            var currentTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+            const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + req.body.Body + ".json?access_token=pk.eyJ1IjoiZXNoYWFuYyIsImEiOiJjazV1Z2RieDYxOWo1M21tanVpdmlxbG54In0.0WdUZzxQ-wDgly1Q44y4lA"
+            currentTime = new Date(currentTime);
+            axios.get(url)
+                .then(response => {
+                    [long, lat] = response.data.features[0].center
+                    Service.find({}).then(services => {
+                        var distances = []
+                        for (let i = 0; i<services.length; i++){
+                            var distance = distanceBetween([services[i].latitude, services[i].longitude], [lat, long]);
+                            distances.push(distance);
+                        }
+                        const index = distances.indexOf(Math.min(...distances));
+                        const serviceSelected = services[index]
+                        const userInformation = {
+                            name: userInfo[0].name,
+                            time: currentTime,
+                            currentLocation: req.body.Body,
+                            serviceName: serviceSelected.name,
+                            phoneNumber: userInfo[0].phoneNumber,
+                            age: userInfo[0].age,
+                            medicalConditions: userInfo[0].medicalConditions,
+                            otherDetails: userInfo[0].otherDetails,
+                            responded: false,
+                        }
+                        let newAlert = new Alert(userInformation)
+                        newAlert.save().then(() => {
+                            twiml.message('Your information has been sent to ' + serviceSelected.name)
+                            res.writeHead(200, {'Content-Type': 'text/xml'});
+                            res.end(twiml.toString());
+                        })
                     })
                 })
-            })
-    }).catch(err => {
-        twiml.message('Please sign up as user on Quick Alert')
-        res.writeHead(200, {'Content-Type': 'text/xml'});
-        res.end(twiml.toString());
+        }
     })
 })
 
