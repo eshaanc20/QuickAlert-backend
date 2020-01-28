@@ -56,6 +56,10 @@ router.post('/', function(req, res, next) {
                     })
                 })
             })
+    }).catch(err => {
+        twiml.message('Please sign up as user on Quick Alert')
+        res.writeHead(200, {'Content-Type': 'text/xml'});
+        res.end(twiml.toString());
     })
 })
 
