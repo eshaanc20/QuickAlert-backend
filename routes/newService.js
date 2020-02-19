@@ -19,7 +19,6 @@ router.post('/', (req, res, next) => {
             }).catch(err => {
                 res.send("New service was not registered");
             })
-            res.send(response.data.features[0].center)
         })
 })
 
