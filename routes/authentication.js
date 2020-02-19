@@ -14,10 +14,7 @@ router.post('/', (req, res, next) => {
                         email: info[0].email,
                         password: info[0].password,
                         type: info[0].type,
-                        phoneNumber: info[0].phoneNumber,
-                        age: info[0].age,
-                        medicalConditions: info[0].medicalConditions,
-                        otherDetails: info[0].otherDetails
+                        address: info[0].address,
                     }
                 }));
             } else {
@@ -37,7 +34,10 @@ router.post('/', (req, res, next) => {
                         email: info[0].email,
                         password: info[0].password,
                         type: info[0].type,
-                        address: info[0].address,
+                        phoneNumber: info[0].phoneNumber,
+                        age: info[0].age,
+                        medicalConditions: info[0].medicalConditions,
+                        otherDetails: info[0].otherDetails
                     }
                 }));
             } else {
