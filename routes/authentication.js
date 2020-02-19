@@ -4,7 +4,7 @@ var {Service} = require('../db/mongoose');
 var {User} = require('../db/mongoose');
 
 router.post('/', (req, res, next) => {
-    if (req.body.type == 'service') {
+    if (req.body.account == 'service') {
         Service.find({ email: req.body.email }).then(info => {
             if (info[0].password == req.body.password) {
                 res.send(JSON.stringify({
@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
             res.send("Service is not in database")
         })
     }
-    else if (req.body.type == 'user') {
+    else if (req.body.account == 'user') {
         User.find({ email: req.body.email }).then(info => {
             if (info[0].password == req.body.password) {
                 res.send(JSON.stringify({
