@@ -10,7 +10,7 @@ router.post('/', (req, res, next) => {
                 res.send(JSON.stringify({
                     authentication: true, 
                     information: {
-                        name: info[0].user,
+                        name: info[0].name,
                         email: info[0].email,
                         password: info[0].password,
                         type: info[0].type,
@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
                 res.send(JSON.stringify({
                     authentication: true, 
                     information: {
-                        name: info[0].user,
+                        name: info[0].name,
                         email: info[0].email,
                         password: info[0].password,
                         type: info[0].type,
