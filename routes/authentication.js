@@ -13,7 +13,7 @@ router.post('/', (req, res, next) => {
                         name: info[0].name,
                         email: info[0].email,
                         password: info[0].password,
-                        type: "service",
+                        type: info[0].type,
                         address: info[0].address,
                     }
                 }));
