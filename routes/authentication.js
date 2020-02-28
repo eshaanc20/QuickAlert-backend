@@ -13,7 +13,7 @@ router.post('/', (req, res, next) => {
                         name: info[0].name,
                         email: info[0].email,
                         password: info[0].password,
-                        type: info[0].type,
+                        type: "service",
                         address: info[0].address,
                     }
                 }));
@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
                         name: info[0].name,
                         email: info[0].email,
                         password: info[0].password,
-                        type: info[0].type,
+                        type: "user",
                         phoneNumber: info[0].phoneNumber,
                         age: info[0].age,
                         medicalConditions: info[0].medicalConditions,
