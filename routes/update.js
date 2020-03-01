@@ -8,6 +8,7 @@ router.get('/', (req, res, next) => {
     }).then(() => {
         res.send('Database updated')
     })
+    res.send('testing')
 });
 
 module.exports = router;
