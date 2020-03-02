@@ -8,9 +8,8 @@ router.post('/', (req, res, next) => {
     }).then(() => {
         res.send('Database updated')
     }).catch((err) => {
-        
+        res.send('Error')
     })
-    res.send('testing')
 });
 
 module.exports = router;
