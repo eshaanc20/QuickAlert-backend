@@ -13,6 +13,7 @@ var newUserRouter = require('./routes/newUser');
 var newServiceRouter = require('./routes/newService');
 var respondRouter = require('./routes/respond');
 var respondedRouter = require('./routes/responded');
+var updaterRouter = require('./routes/update');
 
 var app = express();
 
