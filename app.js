@@ -35,7 +35,7 @@ app.use('/newUser', newUserRouter);
 app.use('/newService', newServiceRouter);
 app.use('/respond', respondRouter);
 app.use('/responded', respondedRouter);
-app.use('/update', respondedRouter);
+app.use('/update', updateRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
