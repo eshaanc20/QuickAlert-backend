@@ -8,7 +8,7 @@ var {User} = require('../db/mongoose');
 var {Service} = require('../db/mongoose');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
     const twiml = new MessagingResponse();
     const distanceBetween = (coordinates1, coordinates2) => {
         [lat1, long1] = coordinates1;
