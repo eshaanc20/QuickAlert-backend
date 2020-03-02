@@ -3,10 +3,10 @@ var router = express.Router();
 var {User} = require('../db/mongoose')
 
 router.post('/', (req, res, next) => {
-    User.updateOne({name: req.body.email}, {
+    User.updateOne({email: req.body.email}, {
         ...req.body
     }).then(() => {
-        res.send(req.body)
+        res.send('Database updated')
     }).catch((err) => {
         res.send('Error')
     })
