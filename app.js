@@ -13,6 +13,7 @@ var newUserRouter = require('./routes/newUser');
 var newServiceRouter = require('./routes/newService');
 var respondRouter = require('./routes/respond');
 var respondedRouter = require('./routes/responded');
+var updateRouter = require('./routes/responded');
 
 var app = express();
 
@@ -21,11 +22,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(cors());
-
-app.get('/products/:id', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})
-})
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
