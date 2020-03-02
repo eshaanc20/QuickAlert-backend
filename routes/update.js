@@ -6,7 +6,7 @@ router.post('/', (req, res, next) => {
     User.updateOne({name: req.body.email}, {
         ...req.body
     }).then(() => {
-        res.send('Database updated')
+        res.send(req.body)
     }).catch((err) => {
         res.send('Error')
     })
