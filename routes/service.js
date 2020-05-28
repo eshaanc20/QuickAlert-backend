@@ -53,7 +53,16 @@ router.post('/signup', async function (req, res, next) {
 //route has a middleware for route authentication
 router.get('/alerts', serviceAuthentication, (req, res, next) => {
     Alert.find({serviceId: req.serviceId}).then(alerts => {
-        var JSONdata = JSON.stringify(alerts);
+        allAlerts = alerts.map(alert => {
+            let decryptedBytes1 = CryptoJs.AES.decrypt(alert.medicalConditions, 'quickalertapplication');
+            let decryptedText1 = decryptedBytes1.toString(CryptoJs.enc.Utf8);
+            let decryptedBytes2 = CryptoJs.AES.decrypt(alert.otherDetails, 'quickalertapplication');
+            let decryptedText2 = decryptedBytes2.toString(CryptoJs.enc.Utf8);
+            alert.medicalConditions = decryptedText1;
+            alert.otherDetails = decryptedText2;
+            return alert;
+        })
+        var JSONdata = JSON.stringify(allAlerts);
         res.send(JSONdata);
     }).catch(err => {
         res.send("No alerts");

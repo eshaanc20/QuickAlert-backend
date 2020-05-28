@@ -5,10 +5,15 @@ var {User} = require('../db/mongoose');
 var bcrypt = require('bcrypt');
 var userAuthentication = require('../middleware/userAuthentication');
 var jwt = require('jsonwebtoken');
+var CryptoJs = require('crypto-js');
 
 router.post('/login', async function (req, res, next) {
     User.findOne({ email: req.body.email }).then(async function (user) {
         const verified = await bcrypt.compare(req.body.password, user.password);
+        let decryptedBytes1 = CryptoJs.AES.decrypt(user.medicalConditions, 'quickalertapplication');
+        let decryptedText1 = decryptedBytes1.toString(CryptoJs.enc.Utf8);
+        let decryptedBytes2 = CryptoJs.AES.decrypt(user.otherDetails, 'quickalertapplication');
+        let decryptedText2 = decryptedBytes2.toString(CryptoJs.enc.Utf8);
         if (verified) {
             const authenticationToken = await jwt.sign({id: user._id}, "quickalertapplication");
             res.send(JSON.stringify({
@@ -20,8 +25,8 @@ router.post('/login', async function (req, res, next) {
                     email: user.email,
                     phoneNumber: user.phoneNumber,
                     age: user.age,
-                    medicalConditions: user.medicalConditions,
-                    otherDetails: user.otherDetails
+                    medicalConditions: decryptedText1,
+                    otherDetails: decryptedText2
                 }
             }));
         } else {
@@ -34,9 +39,11 @@ router.post('/login', async function (req, res, next) {
 
 router.post('/signup', async function (req, res, next) {
     const hashedPassword = await bcrypt.hash(req.body.password, 5);
-    const userInfo = {
-        ...req.body
-    };
+    let userInfo = {...req.body}
+    let encryptedText1 = CryptoJs.AES.encrypt(user.medicalConditions, 'quickalertapplication').toString();
+    let encryptedText2 = CryptoJs.AES.encrypt(user.otherDetails, 'quickalertapplication').toString();
+    userInfo.medicalConditions = encryptedText1;
+    userInfo.otherDetails = encryptedText2;
     userInfo.password = "";
     userInfo.password = hashedPassword;
     const newUser = new User(userInfo);
@@ -49,8 +56,13 @@ router.post('/signup', async function (req, res, next) {
 
 //route has a middleware for route authentication
 router.patch('/', userAuthentication, (req, res, next) => {
+    let updatedInfo = {...req.body};
+    let encryptedText1 = CryptoJs.AES.encrypt(user.medicalConditions, 'quickalertapplication').toString();
+    let encryptedText2 = CryptoJs.AES.encrypt(user.otherDetails, 'quickalertapplication').toString();
+    updatedInfo.medicalConditions = encryptedText1;
+    updatedInfo.otherDetails = encryptedText2;
     User.updateOne({_id: req.userId}, {
-        ...req.body
+        ...updatedInfo
     }).then(() => {
         res.send({requestCompleted: true});
     }).catch((err) => {
