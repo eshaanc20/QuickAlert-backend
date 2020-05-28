@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 const serviceAuthentication = async function (req, res, next) {
     try {
         const token = req.header('authentication').replace('Bearer', '');
-        const tokenInfo = jwt.verify(token, 'quickalertbackend');
+        const tokenInfo = jwt.verify(token, 'quickalertapplication');
         next();
     } catch(e) {
         res.status(402).send("Request token invalid");

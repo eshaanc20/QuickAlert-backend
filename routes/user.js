@@ -8,9 +8,11 @@ var userAuthentication = require('../middleware/userAuthentication');
 router.post('/login', (req, res, next) => {
     User.findOne({ email: req.body.email }).then(user => {
         const verified = bcrypt.compare(req.body.password, user.password);
+        const authenticationToken = await jwt.sign({id: user._id}, "quickalertapplication");
         if (verified) {
             res.send(JSON.stringify({
                 authentication: true, 
+                token: authenticationToken,
                 user: {
                     name: user.name,
                     email: user.email,

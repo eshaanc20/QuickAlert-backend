@@ -7,9 +7,11 @@ var serviceAuthentication = require('../middleware/serviceAuthentication');
 router.post('/login', (req, res, next) => {
     Service.findOne({ email: req.body.email }).then(service => {
         const verified = bcrypt.compare(req.body.password, user.password);
+        const authenticationToken = await jwt.sign({id: service._id}, "quickalertapplication");
         if (verified) {
             res.send(JSON.stringify({
                 authentication: true, 
+                token: authenticationToken,
                 information: {
                     name: service.name,
                     email: service.email,
