@@ -3,6 +3,7 @@ var router = express.Router();
 var {Service} = require('../db/mongoose');
 var {User} = require('../db/mongoose');
 var bcrypt = require('bcrypt');
+var userAuthentication = require('../middleware/userAuthentication');
 
 router.post('/login', (req, res, next) => {
     User.findOne({ email: req.body.email }).then(user => {
@@ -43,7 +44,8 @@ router.post('/signup', async function (req, res, next) {
     })
 })
 
-router.patch('/update', (req, res, next) => {
+//route has a middleware for route authentication
+router.patch('/update', userAuthentication, (req, res, next) => {
     User.updateOne({email: req.body.email}, {
         ...req.body
     }).then(() => {
