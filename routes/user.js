@@ -40,8 +40,8 @@ router.post('/login', async function (req, res, next) {
 router.post('/signup', async function (req, res, next) {
     const hashedPassword = await bcrypt.hash(req.body.password, 5);
     let userInfo = {...req.body}
-    let encryptedText1 = CryptoJs.AES.encrypt(user.medicalConditions, 'quickalertapplication').toString();
-    let encryptedText2 = CryptoJs.AES.encrypt(user.otherDetails, 'quickalertapplication').toString();
+    let encryptedText1 = CryptoJs.AES.encrypt(userInfo.medicalConditions, 'quickalertapplication').toString();
+    let encryptedText2 = CryptoJs.AES.encrypt(userInfo.otherDetails, 'quickalertapplication').toString();
     userInfo.medicalConditions = encryptedText1;
     userInfo.otherDetails = encryptedText2;
     userInfo.password = "";
