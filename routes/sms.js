@@ -29,6 +29,7 @@ router.post('/', async function (req, res, next) {
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
     }
+    console.log('testing');
     let currentTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
     const addressUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + req.body.Body + ".json?access_token=pk.eyJ1IjoiZXNoYWFuYyIsImEiOiJjazV1Z2RieDYxOWo1M21tanVpdmlxbG54In0.0WdUZzxQ-wDgly1Q44y4lA"
     currentTime = new Date(currentTime);
@@ -51,6 +52,7 @@ router.post('/', async function (req, res, next) {
         medicalConditions: userInfo.medicalConditions,
         otherDetails: userInfo.otherDetails,
         responded: false,
+        serviceId: serviceSelected._id
     }
     let newAlert = new Alert(alertInformation);
     newAlert.save().then(() => {

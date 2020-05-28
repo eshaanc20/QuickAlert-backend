@@ -52,7 +52,7 @@ router.post('/signup', async function (req, res, next) {
 
 //route has a middleware for route authentication
 router.get('/alerts', serviceAuthentication, (req, res, next) => {
-    Alert.find({serviceName: req.params.name}).then(alerts => {
+    Alert.find({serviceId: req.serviceId}).then(alerts => {
         var JSONdata = JSON.stringify(alerts);
         res.send(JSONdata);
     }).catch(err => {
@@ -62,7 +62,7 @@ router.get('/alerts', serviceAuthentication, (req, res, next) => {
 
 //route has a middleware for route authentication
 router.patch('/alert/:id', serviceAuthentication, (req, res, next) => {
-    Alert.updateOne({_id: req.params.id}, {...req.body}).then(() => {
+    Alert.updateOne({_id: req.params.id, serviceId: req.serviceId}, {...req.body}).then(() => {
         res.send({requestCompleted: true});
     }).catch(err => {
         res.status(404).send("Alert does not exist");
