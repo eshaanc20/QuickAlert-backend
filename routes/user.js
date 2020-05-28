@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 var {Service} = require('../db/mongoose');
 var {User} = require('../db/mongoose');
+var bcrypt = require('bcrypt');
 
 router.post('/login', (req, res, next) => {
     User.findOne({ email: req.body.email }).then(user => {
-        if (user.password == req.body.password) {
+        const verified = bcrypt.compare(req.body.password, user.password);
+        if (verified) {
             res.send(JSON.stringify({
                 authentication: true, 
                 user: {
@@ -26,10 +28,13 @@ router.post('/login', (req, res, next) => {
     })
 })
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', async function (req, res, next) {
+    const hashedPassword = await bcrypt.hash(req.body.password, 5);
     const userInfo = {
         ...req.body
     };
+    userInfo.password = "";
+    userInfo.password = hashedPassword;
     const newUser = new User(userInfo);
     newUser.save().then(() => {
         res.send("New user registered");
