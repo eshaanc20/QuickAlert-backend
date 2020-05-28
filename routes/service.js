@@ -6,6 +6,7 @@ var axios = require('axios');
 var serviceAuthentication = require('../middleware/serviceAuthentication');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
+var CryptoJs = require('crypto-js');
 
 router.post('/login', async function (req, res, next) {
     Service.findOne({ email: req.body.email }).then(async function(service) {
