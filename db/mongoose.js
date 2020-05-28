@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.Mongodb_URL, {
+mongoose.connect("mongodb+srv://new-user:lwYSJtZ7piE61B72@cluster0-y8hdl.mongodb.net/quick-alert", {
     useNewUrlParser: true,
 })
 

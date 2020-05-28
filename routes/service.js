@@ -1,18 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var {Service} = require('../db/mongoose');
+var {Alert} = require('../db/mongoose');
 var axios = require('axios');
 var serviceAuthentication = require('../middleware/serviceAuthentication');
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt');
 
-router.post('/login', (req, res, next) => {
-    Service.findOne({ email: req.body.email }).then(service => {
-        const verified = bcrypt.compare(req.body.password, user.password);
-        const authenticationToken = await jwt.sign({id: service._id}, "quickalertapplication");
+router.post('/login', async function (req, res, next) {
+    Service.findOne({ email: req.body.email }).then(async function(service) {
+        const verified = await bcrypt.compare(req.body.password, service.password);
         if (verified) {
+            const authenticationToken = await jwt.sign({id: service._id}, "quickalertapplication");
             res.send(JSON.stringify({
                 authentication: true, 
                 token: authenticationToken,
-                information: {
+                service: {
                     name: service.name,
                     email: service.email,
                     type: service.type,
@@ -41,7 +44,7 @@ router.post('/signup', async function (req, res, next) {
     serviceInfo.password = hashedPassword;
     const newService = new Service(serviceInfo);
     newService.save().then(() => {
-        res.send({requestSuccess: true});
+        res.send({requestCompleted: true});
     }).catch(err => {
         res.status(404).send("New service was not registered");
     })
@@ -49,7 +52,7 @@ router.post('/signup', async function (req, res, next) {
 
 //route has a middleware for route authentication
 router.get('/alerts', serviceAuthentication, (req, res, next) => {
-    Alert.find({serviceName: req.body.name}).then(alerts => {
+    Alert.find({serviceName: req.params.name}).then(alerts => {
         var JSONdata = JSON.stringify(alerts);
         res.send(JSONdata);
     }).catch(err => {
@@ -58,9 +61,9 @@ router.get('/alerts', serviceAuthentication, (req, res, next) => {
 });
 
 //route has a middleware for route authentication
-router.patch('/repond', serviceAuthentication, (req, res, next) => {
-    Alert.updateMany({name: req.body.name}, {responded: true}).then(() => {
-        res.send("Updated");
+router.patch('/alert/:id', serviceAuthentication, (req, res, next) => {
+    Alert.updateOne({_id: req.params.id}, {...req.body}).then(() => {
+        res.send({requestCompleted: true});
     }).catch(err => {
         res.status(404).send("Alert does not exist");
     })

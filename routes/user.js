@@ -4,19 +4,21 @@ var {Service} = require('../db/mongoose');
 var {User} = require('../db/mongoose');
 var bcrypt = require('bcrypt');
 var userAuthentication = require('../middleware/userAuthentication');
+var jwt = require('jsonwebtoken');
 
-router.post('/login', (req, res, next) => {
-    User.findOne({ email: req.body.email }).then(user => {
-        const verified = bcrypt.compare(req.body.password, user.password);
-        const authenticationToken = await jwt.sign({id: user._id}, "quickalertapplication");
+router.post('/login', async function (req, res, next) {
+    User.findOne({ email: req.body.email }).then(async function (user) {
+        const verified = await bcrypt.compare(req.body.password, user.password);
         if (verified) {
+            console.log('testing');
+            const authenticationToken = await jwt.sign({id: user._id}, "quickalertapplication");
             res.send(JSON.stringify({
                 authentication: true, 
                 token: authenticationToken,
                 user: {
+                    id: user._id,
                     name: user.name,
                     email: user.email,
-                    password: user.password,
                     phoneNumber: user.phoneNumber,
                     age: user.age,
                     medicalConditions: user.medicalConditions,
@@ -47,13 +49,14 @@ router.post('/signup', async function (req, res, next) {
 })
 
 //route has a middleware for route authentication
-router.patch('/update', userAuthentication, (req, res, next) => {
-    User.updateOne({email: req.body.email}, {
+router.patch('/:id', userAuthentication, (req, res, next) => {
+    console.log(req.params.id);
+    User.updateOne({_id: req.params.id}, {
         ...req.body
     }).then(() => {
-        res.send('Database updated')
+        res.send({requestCompleted: true});
     }).catch((err) => {
-        res.send('Error')
+        res.send({requestCompleted: false});
     })
 });
 
