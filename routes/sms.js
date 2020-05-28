@@ -23,13 +23,12 @@ const distanceBetween = (coordinates1, coordinates2) => {
 
 router.post('/', async function (req, res, next) {
     const twiml = new MessagingResponse();
-    const userInfo = await User.find({phoneNumber: req.body.From});
+    const userInfo = await User.findOne({phoneNumber: req.body.From});
     if (userInfo.length == 0) {
         twiml.message('Please sign up on Quick Alert as a user')
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
     }
-    console.log('testing');
     let currentTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
     const addressUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + req.body.Body + ".json?access_token=pk.eyJ1IjoiZXNoYWFuYyIsImEiOiJjazV1Z2RieDYxOWo1M21tanVpdmlxbG54In0.0WdUZzxQ-wDgly1Q44y4lA"
     currentTime = new Date(currentTime);
